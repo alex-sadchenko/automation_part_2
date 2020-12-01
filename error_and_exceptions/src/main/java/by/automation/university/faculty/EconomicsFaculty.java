@@ -20,8 +20,7 @@ public class EconomicsFaculty extends Faculty {
         for (Group group : groupList) {
             for (Specialisation specialisation : specialisationList) {
                 if (group.getSpecialisation().equals(specialisation)) {
-                    String name = "Economy";
-                    group.setFacultyName(name);
+                    group.setFacultyName("Economy");
                     super.groupList.add(group);
                 }
             }
