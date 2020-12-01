@@ -34,6 +34,11 @@ public class UniversityMain {
         economicsFaculty.addGroup(groupList);
         historicFaculty.addGroup(groupList);
 
+        University university = new University(Arrays.asList(
+                economicsFaculty,
+                historicFaculty
+        ));
+
         groupList.get(0).addStudent(students);
         groupList.get(1).addStudent(students);
         groupList.get(2).addStudent(students);
@@ -79,11 +84,6 @@ public class UniversityMain {
         } catch (NoGroupInFacultyException e) {
             e.printStackTrace();
         }
-
-        University university = new University(Arrays.asList(
-                economicsFaculty,
-                historicFaculty
-        ));
 
         try {
             System.out.println("Average English grade in University is " +
