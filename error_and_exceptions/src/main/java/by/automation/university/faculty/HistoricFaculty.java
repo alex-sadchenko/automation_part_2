@@ -20,8 +20,7 @@ public class HistoricFaculty extends Faculty {
         for (Group group : groupList) {
             for (Specialisation specialisation : specialisationList) {
                 if (group.getSpecialisation().equals(specialisation)) {
-                    String name = "History";
-                    group.setFacultyName(name);
+                    group.setFacultyName("History");
                     super.groupList.add(group);
                 }
             }
