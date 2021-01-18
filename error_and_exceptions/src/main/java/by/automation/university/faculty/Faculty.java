@@ -1,37 +1,45 @@
 package by.automation.university.faculty;
 
-import by.automation.university.Group;
 import by.automation.university.exceptions.NoGroupInFacultyException;
-import by.automation.university.grades.GradePointAverage;
+import by.automation.university.models.Group;
 import by.automation.university.subjects.Subject;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public abstract class Faculty implements GradePointAverage {
-    List<Group> groupList = new ArrayList<>();
+public abstract class Faculty {
+    public final String facultyName;
+    final List<Group> groupList = new ArrayList<>();
 
-    public abstract void addGroup(List<Group> groupList);
-
-    public List<Group> getGroupList() throws NoGroupInFacultyException {
-        if (groupList.isEmpty()) {
-            throw new NoGroupInFacultyException("No group in faculty");
-        } else {
-            return this.groupList;
-        }
+    Faculty(String facultyName){
+        this.facultyName = facultyName;
     }
 
-    @Override
+    public abstract void addGroup(Group group);
+
+    public List<Group> getGroupList() throws NoGroupInFacultyException {
+        if (groupList.isEmpty())
+            throw new NoGroupInFacultyException();
+        return this.groupList;
+    }
+
+    public Group getGroup(String groupNumber) throws NoGroupInFacultyException {
+        if (groupList.isEmpty())
+            throw new NoGroupInFacultyException();
+        return groupList.stream()
+                .filter(x -> x.getGroupNumber().equalsIgnoreCase(groupNumber.trim()))
+                .findAny()
+                .orElseThrow(()-> NoGroupInFacultyException.forInputString(groupNumber));
+    }
+
     public double calculateSubjectAverageGrade(Subject subject) throws NoGroupInFacultyException {
-        if (groupList.isEmpty()) {
-            throw new NoGroupInFacultyException("No group in faculty");
-        } else {
-            return groupList.stream()
-                    .mapToDouble(x -> x.calculateSubjectAverageGrade(subject))
-                    .average()
-                    .orElse(0);
-        }
+        if (groupList.isEmpty())
+            throw new NoGroupInFacultyException();
+        return groupList.stream()
+                .mapToDouble(x -> x.calculateSubjectAverageGrade(subject))
+                .average()
+                .orElse(0);
     }
 
     @Override
@@ -50,7 +58,7 @@ public abstract class Faculty implements GradePointAverage {
     @Override
     public String toString() {
         return "Faculty{" +
-                "groupList=" + groupList.toString() +
+                "groupList=" + groupList +
                 '}';
     }
 }

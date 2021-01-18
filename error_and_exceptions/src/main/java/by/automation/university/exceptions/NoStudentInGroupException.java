@@ -2,6 +2,7 @@ package by.automation.university.exceptions;
 
 public class NoStudentInGroupException extends Exception {
     public NoStudentInGroupException() {
+        super("No students in group");
     }
 
     public NoStudentInGroupException(String message) {

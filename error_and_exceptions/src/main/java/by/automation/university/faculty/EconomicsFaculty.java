@@ -1,30 +1,18 @@
 package by.automation.university.faculty;
 
-import by.automation.university.Specialisation;
-import by.automation.university.Group;
 import by.automation.university.exceptions.NoGroupInFacultyException;
+import by.automation.university.models.Group;
 import by.automation.university.subjects.Subject;
 
-import java.util.*;
-
 public class EconomicsFaculty extends Faculty {
-    private static List<Specialisation> specialisationList = Arrays.asList(
-            Specialisation.SPECIALISATION_IN_ECONOMICS,
-            Specialisation.MAJOR_IN_FINANCIAL_ECONOMICS
-    );
 
     public EconomicsFaculty() {
+        super("Economics");
     }
 
-    public void addGroup(List<Group> groupList) {
-        for (Group group : groupList) {
-            for (Specialisation specialisation : specialisationList) {
-                if (group.getSpecialisation().equals(specialisation)) {
-                    group.setFacultyName("Economy");
-                    super.groupList.add(group);
-                }
-            }
-        }
+    public void addGroup(Group group) {
+        group.setFacultyName(facultyName);
+        super.groupList.add(group);
     }
 
     @Override
@@ -35,7 +23,7 @@ public class EconomicsFaculty extends Faculty {
     @Override
     public String toString() {
         return "EconomicsFaculty{" +
-                "groupList=" + groupList.toString() +
+                "groupList=" + groupList +
                 '}';
     }
 }

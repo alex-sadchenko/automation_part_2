@@ -2,6 +2,7 @@ package by.automation.university.exceptions;
 
 public class NoGroupInFacultyException extends Exception {
     public NoGroupInFacultyException() {
+        super("No group in faculty");
     }
 
     public NoGroupInFacultyException(String message) {
@@ -14,5 +15,9 @@ public class NoGroupInFacultyException extends Exception {
 
     public NoGroupInFacultyException(Throwable cause) {
         super(cause);
+    }
+
+    public static NoGroupInFacultyException forInputString(String number) {
+        return new NoGroupInFacultyException("No group \"" + number + "\" in faculty");
     }
 }

@@ -1,50 +1,51 @@
 package by.automation.university;
 
-import by.automation.university.subjects.*;
-import by.automation.university.subjects.Math;
+import by.automation.university.subjects.AcademicPerformance;
 
 import java.util.Arrays;
 import java.util.List;
 
+import static by.automation.university.subjects.Subject.*;
+
 public enum Specialisation {
     SPECIALISATION_IN_ECONOMICS {
-        public List<Subject> addSubject() {
+        public List<AcademicPerformance> addSubject() {
             return Arrays.asList(
-                    new English(),
-                    new Math(),
-                    new MacroeconomicsTheory()
+                    new AcademicPerformance(ENGLISH),
+                    new AcademicPerformance(MACROECONOMICS_THEORY),
+                    new AcademicPerformance(MATH)
             );
         }
     },
     MAJOR_IN_FINANCIAL_ECONOMICS {
-        public List<Subject> addSubject() {
+        public List<AcademicPerformance> addSubject() {
             return Arrays.asList(
-                    new English(),
-                    new Math(),
-                    new Econometrics()
+                    new AcademicPerformance(ENGLISH),
+                    new AcademicPerformance(MATH),
+                    new AcademicPerformance(ECONOMETRICS)
             );
         }
     },
     MASTER_IN_HISTORY {
-        public List<Subject> addSubject() {
+        public List<AcademicPerformance> addSubject() {
             return Arrays.asList(
-                    new English(),
-                    new History(),
-                    new EuropeHistory()
+                    new AcademicPerformance(ENGLISH),
+                    new AcademicPerformance(HISTORY),
+                    new AcademicPerformance(EUROPE_HISTORY)
             );
         }
     },
     SPECIALISATION_IN_HISTORY {
-        public List<Subject> addSubject() {
+        public List<AcademicPerformance> addSubject() {
             return Arrays.asList(
-                    new English(),
-                    new History(),
-                    new WorldHistory()
+                    new AcademicPerformance(ENGLISH),
+                    new AcademicPerformance(HISTORY),
+                    new AcademicPerformance(WORLD_HISTORY)
             );
         }
     };
 
-    public List<Subject> addSubject() {
+    public List<AcademicPerformance> addSubject() {
         return null;
     }
 }
