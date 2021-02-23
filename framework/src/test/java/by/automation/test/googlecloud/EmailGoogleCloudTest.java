@@ -1,8 +1,7 @@
 package by.automation.test.googlecloud;
 
-import by.automation.page.googlecloud.GoogleCloudCalculatorPage;
+import by.automation.page.googlecloud.GoogleCloudEstimatedInstancePage;
 import by.automation.page.googlecloud.GoogleCloudHomePage;
-import by.automation.page.tempmail.TempMailHomePage;
 import by.automation.service.InstanceCreator;
 import org.testng.annotations.Test;
 
@@ -16,16 +15,16 @@ public class EmailGoogleCloudTest extends CommonConditions{
 
     @Test(description = "check total estimated amount per month")
     public void estimatedAmountTest() {
-        GoogleCloudCalculatorPage googleCloudCalculatorPage = new GoogleCloudHomePage(driver)
+        GoogleCloudEstimatedInstancePage googleCloudEstimatedInstancePage = new GoogleCloudHomePage(driver)
                 .openPage()
                 .searchForResults(SEARCH_TERM)
-                .openGoogleCloudCalculatorPage(SEARCH_TERM);
+                .openGoogleCloudCalculatorPage(SEARCH_TERM)
+                .estimateInstance(InstanceCreator.withDataFromProperties());
 
-        String amountInCalculator = googleCloudCalculatorPage
-                .estimateInstance(InstanceCreator.withDataFromProperties())
+        String amountInCalculator = googleCloudEstimatedInstancePage
                 .getEstimatedSumFromCalculatedInstance();
 
-        String amountInEmail = googleCloudCalculatorPage
+        String amountInEmail = googleCloudEstimatedInstancePage
                 .sendEmail()
                 .readMessage(MAIL_SUBJECT)
                 .getSum();

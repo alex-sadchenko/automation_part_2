@@ -1,7 +1,7 @@
 package by.automation.test.googlecloud;
 
 import by.automation.model.Instance;
-import by.automation.page.googlecloud.GoogleCloudEstimatePage;
+import by.automation.page.googlecloud.GoogleCloudEstimatedInstancePage;
 import by.automation.page.googlecloud.GoogleCloudHomePage;
 import by.automation.service.InstanceCreator;
 import org.testng.annotations.BeforeClass;
@@ -14,12 +14,12 @@ import static org.hamcrest.Matchers.is;
 public class GoogleCloudCalculatorTest extends CommonConditions {
     private static final String SEARCH_TERM = "Google Cloud Platform Pricing Calculator";
     private Instance instance;
-    private GoogleCloudEstimatePage googleCloudEstimatePage;
+    private GoogleCloudEstimatedInstancePage googleCloudEstimatePage;
 
     @BeforeClass
     public void openCalculator() {
         instance = InstanceCreator.withDataFromProperties();
-        googleCloudEstimatePage = new GoogleCloudEstimatePage(driver);
+        googleCloudEstimatePage = new GoogleCloudEstimatedInstancePage(driver);
         new GoogleCloudHomePage(driver)
                 .openPage()
                 .searchForResults(SEARCH_TERM)

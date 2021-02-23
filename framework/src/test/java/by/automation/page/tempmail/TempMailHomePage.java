@@ -1,7 +1,7 @@
 package by.automation.page.tempmail;
 
 import by.automation.page.AbstractPage;
-import by.automation.page.googlecloud.GoogleCloudCalculatorPage;
+import by.automation.page.googlecloud.GoogleCloudEstimatedInstancePage;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -38,7 +38,7 @@ public class TempMailHomePage extends AbstractPage {
     }
 
     public void switchToCalculator() {
-        driver.switchTo().window(GoogleCloudCalculatorPage.getCalculatorWindow());
+        driver.switchTo().window(GoogleCloudEstimatedInstancePage.getCalculatorWindow());
     }
 
     public TempMailMessageFromGoogleCalculatorPage readMessage(String subjectName) {

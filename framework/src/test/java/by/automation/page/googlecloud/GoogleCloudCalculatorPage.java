@@ -2,13 +2,11 @@ package by.automation.page.googlecloud;
 
 import by.automation.model.Instance;
 import by.automation.page.AbstractPage;
-import by.automation.page.tempmail.TempMailHomePage;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 public class GoogleCloudCalculatorPage extends AbstractPage {
-    private static String calculatorWindow;
 
     @FindBy(xpath = "//*[@class='md-tab ng-scope ng-isolate-scope md-ink-ripple md-active']//*[@class='tab-holder compute']")
     private WebElement computeEngineButton;
@@ -36,21 +34,13 @@ public class GoogleCloudCalculatorPage extends AbstractPage {
     private WebElement commitUsage;
     @FindBy(xpath = "//form[@name='ComputeEngineForm']//button[contains(text(),'Add to Estimate')]")
     private WebElement estimateButton;
-    @FindBy(id = "email_quote")
-    private WebElement emailEstimateButton;
-    @FindBy(id = "input_477")
-    private WebElement emailField;
-    @FindBy(xpath = "//button[@aria-label='Send Email']")
-    private WebElement sendEmailButton;
+    @FindBy(css = "iframe")
+    private WebElement iFrame;
+    @FindBy(id = "myFrame")
+    private WebElement myFrame;
 
     public GoogleCloudCalculatorPage(WebDriver driver) {
         super(driver);
-        calculatorWindow = driver.getWindowHandle();
-    }
-
-    private void switchToFrame() {
-        driver.switchTo().frame(driver.findElement(By.cssSelector("iframe")));
-        driver.switchTo().frame(driver.findElement(By.id("myFrame")));
     }
 
     public GoogleCloudCalculatorPage activateComputeEngine() {
@@ -79,14 +69,15 @@ public class GoogleCloudCalculatorPage extends AbstractPage {
         return this;
     }
 
-    public GoogleCloudEstimatePage clickEstimate() {
+    public GoogleCloudEstimatedInstancePage clickEstimate() {
         scrollToElement(estimateButton);
         estimateButton.click();
-        return new GoogleCloudEstimatePage(driver);
+        return new GoogleCloudEstimatedInstancePage(driver);
     }
 
-    public GoogleCloudEstimatePage estimateInstance(Instance instance) {
-        switchToFrame();
+    public GoogleCloudEstimatedInstancePage estimateInstance(Instance instance) {
+        switchToFrame(iFrame);
+        switchToFrame(myFrame);
         logger.info("calculate estimation for instance " + instance);
         return activateComputeEngine()
                 .fillInstancesField(instance.getNumberOfInstances())
@@ -101,33 +92,5 @@ public class GoogleCloudCalculatorPage extends AbstractPage {
                 .dropOff(dataCenter, "93", instance.getDataCenter())
                 .dropOff(commitUsage, "100", instance.getCommittedUsage())
                 .clickEstimate();
-    }
-
-    public TempMailHomePage openTempMail() {
-        ((JavascriptExecutor) driver).executeScript("window.open();");
-        for (String pageId : driver.getWindowHandles()){
-            if(!pageId.equals(getCalculatorWindow())){
-                driver.switchTo().window(pageId);
-            }
-        }
-        return new TempMailHomePage(driver).openPage();
-    }
-
-    public TempMailHomePage sendEmail() {
-        openTempMail().getEmailAddress().switchToCalculator();
-        switchToFrame();
-        emailEstimateButton.click();
-        scrollToElement(emailField).sendKeys(Keys.CONTROL + "v");
-        scrollToElement(sendEmailButton).click();
-        switchToEmail();
-        return new TempMailHomePage(driver);
-    }
-
-    public static String getCalculatorWindow() {
-        return calculatorWindow;
-    }
-
-    public void switchToEmail() {
-        driver.switchTo().window(TempMailHomePage.getEmailWindow());
     }
 }
