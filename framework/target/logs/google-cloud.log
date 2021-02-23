@@ -1,0 +1,5 @@
+2021-02-23 12:33:02,915 [main] INFO  - opened search results for Google Cloud Platform Pricing Calculator
+2021-02-23 12:33:13,619 [main] INFO  - opened page with search term Google Cloud Platform Pricing Calculator
+2021-02-23 12:33:14,389 [main] INFO  - calculate estimation for instance Instance{numberOfInstances='4', operatingSystem='Free: Debian, CentOS, CoreOS, Ubuntu, or other User Provided OS', machineClass='Regular', series='N1', machineType='n1-standard-8 (vCPUs: 8, RAM: 30GB)', numberOfGpu='1', gpuType='NVIDIA Tesla V100', localSsd='2x375 GB', dataCenter='Frankfurt (europe-west3)', committedUsage='1 Year'}
+2021-02-23 12:33:24,649 [main] INFO  - opened web page https://temp-mail.org/
+2021-02-23 12:33:34,437 [main] INFO  - read message with subject Google Cloud Platform Price Estimate
