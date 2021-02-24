@@ -70,7 +70,7 @@ public class GoogleCloudEstimatedInstancePage extends AbstractPage {
             logger.error("failed to save screenshot:" + e.getLocalizedMessage());
         }
         scrollToElement(sendEmailButton).click();
-        logger.error("sent email");
+        logger.info("sent email");
         switchToEmail();
         return new TempMailHomePage(driver);
     }
