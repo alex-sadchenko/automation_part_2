@@ -59,7 +59,7 @@ public class GoogleCloudEstimatedInstancePage extends AbstractPage {
         openTempMail().getEmailAddress().switchToCalculator();
         switchToFrame(iFrame);
         switchToFrame(myFrame);
-        emailEstimateButton.click();
+        scrollToElement(emailEstimateButton).click();
         scrollToElement(emailField).sendKeys(Keys.CONTROL + "v");
         File screenCapture = ((TakesScreenshot) DriverSingleton
                 .getDriver()).getScreenshotAs(OutputType.FILE);
