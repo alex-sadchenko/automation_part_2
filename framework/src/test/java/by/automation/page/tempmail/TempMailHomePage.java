@@ -33,7 +33,7 @@ public class TempMailHomePage extends AbstractPage {
     }
 
     public TempMailHomePage getEmailAddress() {
-        wait(50).until(elementToBeClickable(copyEmailAddress)).click();
+        wait(10).until(elementToBeClickable(copyEmailAddress)).click();
         return this;
     }
 
@@ -43,7 +43,7 @@ public class TempMailHomePage extends AbstractPage {
 
     public TempMailMessageFromGoogleCalculatorPage readMessage(String subjectName) {
         scrollToElement(inboxMessageField);
-        wait(300).until((ExpectedCondition<WebElement>) input -> {
+        wait(60).until((ExpectedCondition<WebElement>) input -> {
             for (WebElement element : inboxMessages) {
                 if (element.findElement(By.xpath("//a[contains(text(), '" + subjectName + "')]"))
                         .getText().equals(subjectName))

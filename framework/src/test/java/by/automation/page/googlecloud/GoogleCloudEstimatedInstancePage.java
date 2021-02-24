@@ -63,16 +63,8 @@ public class GoogleCloudEstimatedInstancePage extends AbstractPage {
         switchToFrame(iFrame);
         switchToFrame(myFrame);
         scrollToElement(emailEstimateButton).click();
-        String text = (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
-        scrollToElement(emailField).sendKeys(text);
-        File screenCapture = ((TakesScreenshot) DriverSingleton
-                .getDriver()).getScreenshotAs(OutputType.FILE);
-        try {
-            FileUtils.copyFile(screenCapture, new File(".//target/screenshots/"
-                    + ZonedDateTime.now().format(DateTimeFormatter.ofPattern("uuuu-MM-dd_HH-mm-ss")) + ".png"));
-        } catch (IOException e) {
-            logger.error("failed to save screenshot:" + e.getLocalizedMessage());
-        }
+        String textFromBuffer = (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
+        scrollToElement(emailField).sendKeys(textFromBuffer);
         scrollToElement(sendEmailButton).click();
         logger.info("sent email");
         switchToEmail();
