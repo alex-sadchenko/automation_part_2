@@ -33,7 +33,7 @@ public class TempMailHomePage extends AbstractPage {
     }
 
     public TempMailHomePage getEmailAddress() {
-        wait(10).until(elementToBeClickable(copyEmailAddress)).click();
+        wait(50).until(elementToBeClickable(copyEmailAddress)).click();
         return this;
     }
 
