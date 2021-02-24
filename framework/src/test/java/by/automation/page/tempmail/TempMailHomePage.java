@@ -13,7 +13,10 @@ import java.util.List;
 public class TempMailHomePage extends AbstractPage {
     private static final String HOMEPAGE_URL = "https://temp-mail.org/";
     private static String emailWindow;
+    private static String emailAddress;
 
+    @FindBy(id = "mail")
+    private WebElement emailAddressInput;
     @FindBy(xpath = "//*[@class='temp-emailbox']//button[@class='btn-rds icon-btn bg-theme click-to-copy copyIconGreenBtn']")
     private WebElement copyEmailAddress;
     @FindBy(xpath = "//*[@class='inbox-header hidden-xs-sm']")
@@ -32,8 +35,9 @@ public class TempMailHomePage extends AbstractPage {
         return this;
     }
 
-    public TempMailHomePage getEmailAddress() {
-        wait(10).until(elementToBeClickable(copyEmailAddress)).click();
+    public TempMailHomePage copyEmailAddress() {
+        wait(10).until(elementToBeClickable(copyEmailAddress));
+        emailAddress = emailAddressInput.getAttribute("value");
         return this;
     }
 
@@ -57,6 +61,10 @@ public class TempMailHomePage extends AbstractPage {
 
     public static String getEmailWindow() {
         return emailWindow;
+    }
+
+    public static String getEmailAddress() {
+        return emailAddress;
     }
 }
 

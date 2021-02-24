@@ -1,20 +1,9 @@
 package by.automation.page.googlecloud;
 
-import by.automation.driver.DriverSingleton;
 import by.automation.page.AbstractPage;
 import by.automation.page.tempmail.TempMailHomePage;
-import by.automation.utils.TestListener;
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
-
-import java.awt.*;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.UnsupportedFlavorException;
-import java.io.File;
-import java.io.IOException;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class GoogleCloudEstimatedInstancePage extends AbstractPage {
     private static String calculatorWindow;
@@ -58,13 +47,12 @@ public class GoogleCloudEstimatedInstancePage extends AbstractPage {
         return new TempMailHomePage(driver).openPage();
     }
 
-    public TempMailHomePage sendEmail() throws IOException, UnsupportedFlavorException {
-        openTempMail().getEmailAddress().switchToCalculator();
+    public TempMailHomePage sendEmail() {
+        openTempMail().copyEmailAddress().switchToCalculator();
         switchToFrame(iFrame);
         switchToFrame(myFrame);
         scrollToElement(emailEstimateButton).click();
-        String textFromBuffer = (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
-        scrollToElement(emailField).sendKeys(textFromBuffer);
+        scrollToElement(emailField).sendKeys(TempMailHomePage.getEmailAddress());
         scrollToElement(sendEmailButton).click();
         logger.info("sent email");
         switchToEmail();
