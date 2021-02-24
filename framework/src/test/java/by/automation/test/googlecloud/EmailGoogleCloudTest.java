@@ -5,6 +5,9 @@ import by.automation.page.googlecloud.GoogleCloudHomePage;
 import by.automation.service.InstanceCreator;
 import org.testng.annotations.Test;
 
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.io.IOException;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
@@ -14,7 +17,7 @@ public class EmailGoogleCloudTest extends CommonConditions{
     private static final String MAIL_SUBJECT = "Google Cloud Platform Price Estimate";
 
     @Test(description = "check total estimated amount per month")
-    public void estimatedAmountTest() {
+    public void estimatedAmountTest() throws IOException, UnsupportedFlavorException {
         GoogleCloudEstimatedInstancePage googleCloudEstimatedInstancePage = new GoogleCloudHomePage(driver)
                 .openPage()
                 .searchForResults(SEARCH_TERM)

@@ -8,6 +8,9 @@ import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 
+import java.awt.*;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.File;
 import java.io.IOException;
 import java.time.ZonedDateTime;
@@ -55,12 +58,13 @@ public class GoogleCloudEstimatedInstancePage extends AbstractPage {
         return new TempMailHomePage(driver).openPage();
     }
 
-    public TempMailHomePage sendEmail() {
+    public TempMailHomePage sendEmail() throws IOException, UnsupportedFlavorException {
         openTempMail().getEmailAddress().switchToCalculator();
         switchToFrame(iFrame);
         switchToFrame(myFrame);
         scrollToElement(emailEstimateButton).click();
-        scrollToElement(emailField).sendKeys(Keys.CONTROL + "v");
+        String text = (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
+        scrollToElement(emailField).sendKeys(text);
         File screenCapture = ((TakesScreenshot) DriverSingleton
                 .getDriver()).getScreenshotAs(OutputType.FILE);
         try {
