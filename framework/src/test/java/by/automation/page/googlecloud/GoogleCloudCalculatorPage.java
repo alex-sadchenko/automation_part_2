@@ -10,27 +10,27 @@ public class GoogleCloudCalculatorPage extends AbstractPage {
 
     @FindBy(xpath = "//*[@class='md-tab ng-scope ng-isolate-scope md-ink-ripple md-active']//*[@class='tab-holder compute']")
     private WebElement computeEngineButton;
-    @FindBy(id = "input_63")
+    @FindBy(xpath = "//*[contains(text(), 'Number of instances')]//..//input")
     private WebElement instancesField;
-    @FindBy(id = "select_value_label_56")
+    @FindBy(xpath = "//*[contains(text(), 'Operating System / Software')]//..//md-select")
     private WebElement operatingSystem;
-    @FindBy(id = "select_80")
+    @FindBy(xpath = "//*[@placeholder='VM Class']")
     private WebElement machineClass;
-    @FindBy(id = "select_90")
+    @FindBy(xpath = "//*[@placeholder='Instance type']")
     private WebElement machineType;
-    @FindBy(id = "select_value_label_59")
+    @FindBy(xpath = "//*[@placeholder='Series']")
     private WebElement series;
     @FindBy(xpath = "//*[@class='ng-scope layout-row']//*[contains(text(), 'Add GPUs')]")
     private WebElement gpuCheckBox;
-    @FindBy(id = "select_value_label_392")
+    @FindBy(xpath = "//*[@placeholder='Number of GPUs']")
     private WebElement numberOfGpu;
-    @FindBy(id = "select_value_label_393")
+    @FindBy(xpath = "//*[@placeholder='GPU type']")
     private WebElement gpuType;
-    @FindBy(id = "select_value_label_354")
+    @FindBy(xpath = "//*[@placeholder='Local SSD']")
     private WebElement localSsd;
-    @FindBy(id = "select_value_label_61")
+    @FindBy(xpath = "//*[@name='ComputeEngineForm']//*[@placeholder='Datacenter location']")
     private WebElement dataCenter;
-    @FindBy(id = "select_value_label_62")
+    @FindBy(xpath = "//*[@name='ComputeEngineForm']//*[@placeholder='Committed usage']")
     private WebElement commitUsage;
     @FindBy(xpath = "//form[@name='ComputeEngineForm']//button[contains(text(),'Add to Estimate')]")
     private WebElement estimateButton;
@@ -53,13 +53,13 @@ public class GoogleCloudCalculatorPage extends AbstractPage {
         return this;
     }
 
-    private GoogleCloudCalculatorPage dropOff(WebElement webElement, String containerNumber, String value) {
+    private GoogleCloudCalculatorPage dropOff(WebElement webElement, String value) {
         scrollToElement(webElement);
         wait(5).until(visibilityOf(webElement)).click();
-        String selectContainer = "//*[@id='select_container_%s']//div[contains(text(),'%s')]";
+        String selectContainer = "//*[@class='md-select-menu-container md-active md-clickable']//div[contains(text(),'%s')]";
         wait(5)
                 .until(visibilityOfElementLocated(By
-                        .xpath(String.format(selectContainer, containerNumber, value)))).click();
+                        .xpath(String.format(selectContainer, value)))).click();
         return this;
     }
 
@@ -81,16 +81,16 @@ public class GoogleCloudCalculatorPage extends AbstractPage {
         logger.info("calculate estimation for instance " + instance);
         return activateComputeEngine()
                 .fillInstancesField(instance.getNumberOfInstances())
-                .dropOff(operatingSystem, "77", instance.getOperatingSystem())
-                .dropOff(machineClass, "81", instance.getMachineClass())
-                .dropOff(series, "89", instance.getSeries())
-                .dropOff(machineType, "91", instance.getMachineType())
+                .dropOff(operatingSystem, instance.getOperatingSystem())
+                .dropOff(machineClass, instance.getMachineClass())
+                .dropOff(series, instance.getSeries())
+                .dropOff(machineType, instance.getMachineType())
                 .clickAddGpuCheckBox()
-                .dropOff(numberOfGpu, "395", instance.getNumberOfGpu())
-                .dropOff(gpuType, "397", instance.getGpuType())
-                .dropOff(localSsd, "356", instance.getLocalSsd())
-                .dropOff(dataCenter, "93", instance.getDataCenter())
-                .dropOff(commitUsage, "100", instance.getCommittedUsage())
+                .dropOff(numberOfGpu, instance.getNumberOfGpu())
+                .dropOff(gpuType, instance.getGpuType())
+                .dropOff(localSsd, instance.getLocalSsd())
+                .dropOff(dataCenter, instance.getDataCenter())
+                .dropOff(commitUsage, instance.getCommittedUsage())
                 .clickEstimate();
     }
 }

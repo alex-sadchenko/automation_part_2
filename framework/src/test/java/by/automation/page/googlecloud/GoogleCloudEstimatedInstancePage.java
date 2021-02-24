@@ -26,7 +26,7 @@ public class GoogleCloudEstimatedInstancePage extends AbstractPage {
     private WebElement myFrame;
     @FindBy(id = "email_quote")
     private WebElement emailEstimateButton;
-    @FindBy(id = "input_477")
+    @FindBy(xpath = "//*[@name='emailForm']//input[@type='email']")
     private WebElement emailField;
     @FindBy(xpath = "//button[@aria-label='Send Email']")
     private WebElement sendEmailButton;

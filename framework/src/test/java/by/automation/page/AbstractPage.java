@@ -6,6 +6,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 
@@ -28,6 +29,6 @@ public abstract class AbstractPage {
     }
 
     protected void switchToFrame(WebElement frame) {
-        driver.switchTo().frame(frame);
+        wait(100).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frame));
     }
 }
