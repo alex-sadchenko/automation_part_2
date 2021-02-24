@@ -1,9 +1,17 @@
 package by.automation.page.googlecloud;
 
+import by.automation.driver.DriverSingleton;
 import by.automation.page.AbstractPage;
 import by.automation.page.tempmail.TempMailHomePage;
+import by.automation.utils.TestListener;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
+
+import java.io.File;
+import java.io.IOException;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class GoogleCloudEstimatedInstancePage extends AbstractPage {
     private static String calculatorWindow;
@@ -53,7 +61,16 @@ public class GoogleCloudEstimatedInstancePage extends AbstractPage {
         switchToFrame(myFrame);
         emailEstimateButton.click();
         scrollToElement(emailField).sendKeys(Keys.CONTROL + "v");
+        File screenCapture = ((TakesScreenshot) DriverSingleton
+                .getDriver()).getScreenshotAs(OutputType.FILE);
+        try {
+            FileUtils.copyFile(screenCapture, new File(".//target/screenshots/"
+                    + ZonedDateTime.now().format(DateTimeFormatter.ofPattern("uuuu-MM-dd_HH-mm-ss")) + ".png"));
+        } catch (IOException e) {
+            logger.error("failed to save screenshot:" + e.getLocalizedMessage());
+        }
         scrollToElement(sendEmailButton).click();
+        logger.error("sent email");
         switchToEmail();
         return new TempMailHomePage(driver);
     }
