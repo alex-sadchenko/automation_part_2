@@ -1,19 +1,19 @@
 package by.automation.page.tempmail;
 
 import by.automation.page.AbstractPage;
-import by.automation.page.googlecloud.GoogleCloudEstimatedInstancePage;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.*;
-
 import java.util.List;
+
+import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
 public class TempMailHomePage extends AbstractPage {
     private static final String HOMEPAGE_URL = "https://temp-mail.org/";
     private static String emailWindow;
-    private static String emailAddress;
 
     @FindBy(id = "mail")
     private WebElement emailAddressInput;
@@ -26,23 +26,18 @@ public class TempMailHomePage extends AbstractPage {
 
     public TempMailHomePage(WebDriver driver) {
         super(driver);
-        emailWindow = driver.getWindowHandle();
     }
 
     public TempMailHomePage openPage() {
         driver.get(HOMEPAGE_URL);
+        emailWindow = driver.getWindowHandle();
         logger.info("opened web page " + HOMEPAGE_URL);
         return this;
     }
 
-    public TempMailHomePage copyEmailAddress() {
+    public String copyEmailAddress() {
         wait(10).until(elementToBeClickable(copyEmailAddress));
-        emailAddress = emailAddressInput.getAttribute("value");
-        return this;
-    }
-
-    public void switchToCalculator() {
-        driver.switchTo().window(GoogleCloudEstimatedInstancePage.getCalculatorWindow());
+        return emailAddressInput.getAttribute("value");
     }
 
     public TempMailMessageFromGoogleCalculatorPage readMessage(String subjectName) {
@@ -59,12 +54,8 @@ public class TempMailHomePage extends AbstractPage {
         return new TempMailMessageFromGoogleCalculatorPage(driver);
     }
 
-    public static String getEmailWindow() {
+    public String getEmailWindow() {
         return emailWindow;
-    }
-
-    public static String getEmailAddress() {
-        return emailAddress;
     }
 }
 

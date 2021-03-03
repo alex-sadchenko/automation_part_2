@@ -5,8 +5,6 @@ import by.automation.page.googlecloud.GoogleCloudEstimatedInstancePage;
 import by.automation.page.googlecloud.GoogleCloudHomePage;
 import by.automation.service.InstanceCreator;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -30,8 +28,8 @@ public class GoogleCloudCalculatorTest extends CommonConditions {
                 .estimateInstance(instance);
     }
 
-    @Test(description = "check machine class")
-    public void machineClassTest() {
+    @Test
+    public void estimateInstanceTest() {
         String expectedMachineClass = "VM class: " + instance.getMachineClass();
         String expectedInstanceType = "Instance type: n1-standard-8";
         String expectedRegion = "Region: Frankfurt";
@@ -46,7 +44,7 @@ public class GoogleCloudCalculatorTest extends CommonConditions {
         String actualCommitmentTerm = googleCloudEstimatePage.getCommitmentTermFromCalculatedInstance();
         String actualEstimationSum = googleCloudEstimatePage.getEstimatedSumFromCalculatedInstance();
 
-        SoftAssert allAssert = new SoftAssert();
+        SoftAssert assertAll = new SoftAssert();
 
         assertThat(actualMachineClass.toLowerCase(), is(equalTo(expectedMachineClass.toLowerCase())));
         assertThat(actualInstanceType, is(equalTo(expectedInstanceType)));
@@ -55,7 +53,7 @@ public class GoogleCloudCalculatorTest extends CommonConditions {
         assertThat(actualCommitmentTerm, is(equalTo(expectedCommitmentTerm)));
         assertThat(actualEstimationSum, is(equalTo(expectedEstimationSum)));
 
-        allAssert.assertAll();
+        assertAll.assertAll();
     }
 }
 

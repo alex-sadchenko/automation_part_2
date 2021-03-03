@@ -37,33 +37,17 @@ public class GoogleCloudEstimatedInstancePage extends AbstractPage {
         calculatorWindow = driver.getWindowHandle();
     }
 
-    public TempMailHomePage openTempMail() {
-        ((JavascriptExecutor) driver).executeScript("window.open();");
-        for (String pageId : driver.getWindowHandles()){
-            if(!pageId.equals(getCalculatorWindow())){
-                driver.switchTo().window(pageId);
-            }
-        }
-        return new TempMailHomePage(driver).openPage();
-    }
-
-    public TempMailHomePage sendEmail() {
-        openTempMail().copyEmailAddress().switchToCalculator();
+    public TempMailHomePage sendEmail(String emailAddress) {
         switchToFrame(iFrame);
         switchToFrame(myFrame);
         scrollToElement(emailEstimateButton).click();
-        scrollToElement(emailField).sendKeys(TempMailHomePage.getEmailAddress());
+        scrollToElement(emailField).sendKeys(emailAddress);
         scrollToElement(sendEmailButton).click();
         logger.info("sent email");
-        switchToEmail();
         return new TempMailHomePage(driver);
     }
 
-    public void switchToEmail() {
-        driver.switchTo().window(TempMailHomePage.getEmailWindow());
-    }
-
-    public static String getCalculatorWindow() {
+    public String getCalculatorWindow() {
         return calculatorWindow;
     }
 
