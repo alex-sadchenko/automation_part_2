@@ -3,7 +3,7 @@
 <suite name="Smoke" verbose="1">
     <test name="GoogleCloud">
         <classes>
-            <class name="by.automation.test.googlecloud.EmailGoogleCloudTest"/>
+            <class name="by.automation.test.googlecloud.GoogleCloudCalculatorTest"/>
         </classes>
     </test>
 </suite>

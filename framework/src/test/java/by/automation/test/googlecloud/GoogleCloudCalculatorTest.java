@@ -5,7 +5,10 @@ import by.automation.page.googlecloud.GoogleCloudEstimatedInstancePage;
 import by.automation.page.googlecloud.GoogleCloudHomePage;
 import by.automation.service.InstanceCreator;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -30,47 +33,29 @@ public class GoogleCloudCalculatorTest extends CommonConditions {
     @Test(description = "check machine class")
     public void machineClassTest() {
         String expectedMachineClass = "VM class: " + instance.getMachineClass();
-        String actualMachineClass = googleCloudEstimatePage.getMachineClassFromCalculatedInstance();
-
-        assertThat(actualMachineClass.toLowerCase(), is(equalTo(expectedMachineClass.toLowerCase())));
-    }
-
-    @Test(description = "check instance type")
-    public void instanceTypeTest() {
         String expectedInstanceType = "Instance type: n1-standard-8";
-        String actualInstanceType = googleCloudEstimatePage.getInstanceTypeFromCalculatedInstance();
-
-        assertThat(actualInstanceType, is(equalTo(expectedInstanceType)));
-    }
-
-    @Test(description = "check region")
-    public void regionTest() {
         String expectedRegion = "Region: Frankfurt";
-        String actualRegion = googleCloudEstimatePage.getRegionFromCalculatedInstance();
-
-        assertThat(actualRegion, is(equalTo(expectedRegion)));
-    }
-
-    @Test(description = "check local SSD")
-    public void localSsdTest() {
         String expectedLocalSsd = "Total available local SSD space 2x375 GiB";
-        String actualLocalSsd = googleCloudEstimatePage.getLocalSsdFromCalculatedInstance();
-        assertThat(actualLocalSsd, is(equalTo(expectedLocalSsd)));
-    }
-
-    @Test(description = "check commitment term")
-    public void commitmentTermTest() {
         String expectedCommitmentTerm = "Commitment term: 1 Year";
-        String actualCommitmentTerm = googleCloudEstimatePage.getCommitmentTermFromCalculatedInstance();
-        assertThat(actualCommitmentTerm, is(equalTo(expectedCommitmentTerm)));
-    }
-
-    @Test(description = "check estimation sum")
-    public void estimatedSumTest() {
         String expectedEstimationSum = "1,082.77";
+
+        String actualMachineClass = googleCloudEstimatePage.getMachineClassFromCalculatedInstance();
+        String actualInstanceType = googleCloudEstimatePage.getInstanceTypeFromCalculatedInstance();
+        String actualRegion = googleCloudEstimatePage.getRegionFromCalculatedInstance();
+        String actualLocalSsd = googleCloudEstimatePage.getLocalSsdFromCalculatedInstance();
+        String actualCommitmentTerm = googleCloudEstimatePage.getCommitmentTermFromCalculatedInstance();
         String actualEstimationSum = googleCloudEstimatePage.getEstimatedSumFromCalculatedInstance();
 
+        SoftAssert allAssert = new SoftAssert();
+
+        assertThat(actualMachineClass.toLowerCase(), is(equalTo(expectedMachineClass.toLowerCase())));
+        assertThat(actualInstanceType, is(equalTo(expectedInstanceType)));
+        assertThat(actualRegion, is(equalTo(expectedRegion)));
+        assertThat(actualLocalSsd, is(equalTo(expectedLocalSsd)));
+        assertThat(actualCommitmentTerm, is(equalTo(expectedCommitmentTerm)));
         assertThat(actualEstimationSum, is(equalTo(expectedEstimationSum)));
+
+        allAssert.assertAll();
     }
 }
 
